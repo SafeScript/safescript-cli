@@ -1,0 +1,22 @@
+{
+  "name": "safescript-cli",
+  "version": "0.1.0",
+  "description": "CLI for SafeScript — run, validate, and check .safe files",
+  "main": "lib/commands.js",
+  "bin": {
+    "safescript": "./bin/safescript"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": ["safescript", "cli", "sandbox", "safe", "validate"],
+  "author": "Gregory Magarshak",
+  "license": "MIT",
+  "dependencies": {
+    "safescript": ">=0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SafeScript/safescript-cli.git"
+  }
+}

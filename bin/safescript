@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+'use strict';
+
+var commands = require('../lib/commands');
+
+var args = process.argv.slice(2);
+var command = args[0];
+var rest = args.slice(1);
+
+if (!command || command === '--help' || command === '-h') {
+  commands.help();
+  process.exit(0);
+}
+
+if (command === '--version' || command === '-v') {
+  commands.version();
+  process.exit(0);
+}
+
+var exitCode = 0;
+
+switch (command) {
+  case 'run':
+    exitCode = commands.run(rest);
+    break;
+  case 'validate':
+    exitCode = commands.validate(rest);
+    break;
+  case 'check':
+    exitCode = commands.check(rest);
+    break;
+  case 'compile':
+    exitCode = commands.compile(rest);
+    break;
+  case 'info':
+    exitCode = commands.info(rest);
+    break;
+  default:
+    console.error('Unknown command: ' + command);
+    commands.help();
+    exitCode = 1;
+}
+
+// run() returns a Promise (auto-async model); other commands return a number
+if (exitCode && typeof exitCode.then === 'function') {
+  exitCode.then(function(code) { process.exit(code); });
+} else {
+  process.exit(exitCode);
+}
